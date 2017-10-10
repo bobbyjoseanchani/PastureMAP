@@ -1,0 +1,73 @@
+		<div class="row" style="margin-top:50px;">
+			<div class="col-md-1 hidden-sm hidden-xs"></div>
+			<!-- Area to display the paddock being built -->
+			<div class="col-md-6 col-sm-8">
+				<ul class="nav nav-tabs" ng-init="tab=1">
+					<li ng-class="{active:tab===1}"> 
+						<a href ng-click="tab = 1">Paddock</a> 
+					</li>
+					<li ng-class="{active:tab===2}"> 
+						<a href ng-click="tab = 2">View Points</a> 
+					</li>
+				</ul>
+				<div ng-show="tab === 1">
+					<div ng-show="paddockCoordinates.length===0" style="padding-top:15px;">
+						Add points by entering coordinates
+					</div>
+					<canvas id="paddockCanvas" width="300" height="300" style="solid #000000;padding-top:15px;"></canvas>	
+					<div>
+						<div ng-show="paddockArea && paddockArea !=0" style="background-color:#F5F5F5;padding:10px;">
+							<h3>Paddock Area: {{paddockArea}} unit<sup>2</sup></h3>
+						</div>
+					</div>
+					<div class="form-group" style="padding-top:10px;">
+						<button type="submit" id="drawPaddock" class="btn btn-primary btn-md" ng-click="drawPaddock()" ng-disabled="paddockCoordinates.length<3" >Draw Paddock</button>
+						<button type="submit" id="clearPaddock" class="btn btn-primary btn-md" ng-click="clearPaddock()" ng-disabled="paddockCoordinates.length<1" >Clear Paddock</button>
+						<button type="submit" id="calcArea" class="btn btn-primary btn-md" ng-click="calcArea()" ng-disabled="paddockCoordinates.length<3" >Calculate Area</button>
+					</div>
+				</div>		
+				<div ng-show="tab === 2">
+					<div ng-show="paddockCoordinates.length===0" style="padding-top:15px;">
+						Add points by entering coordinates
+					</div>
+					<table class="table" ng-show="paddockCoordinates.length!=0" style="padding-top:15px;">
+						<thead>
+							<tr>
+								<th>Point</th>
+								<th>X</th>
+								<th>Y</th>
+							</tr>
+						</thead>
+						<tbody>	
+							<tr ng-repeat="point in paddockCoordinates track by $index">
+								<td>Point-{{$index}}</td>
+								<td>{{point.xcoord}}</td>
+								<td>{{point.ycoord}}</td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>
+			</div>
+			<!-- Area to enter paddock coordinates -->			
+			<div class="col-md-4 col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading"><h4>Add Paddock points</h4></div>
+					<div class="panel-body">
+						<form class="css-form" id="PaddockForm" role="form" name="PaddockForm" novalidate>
+							<div class="form-group">
+								<label for="xcoord">X coordinate</label>	
+								<input type="text" class="form-control" placeholder="Enter X coordinate here" ng-model="paddock.xcoord" name="xcoord" ng-maxlength="6" ng-model-options="{ updateOn: 'blur' }" ng-pattern="/^[0-9][\d]{0,2}$/" id="xcoord"/>
+							</div>							
+							<div class="form-group">
+								<label for="ycoord">Y coordinate</label>	
+								<input type="text" class="form-control" placeholder="Enter Y coordinate here" ng-model="paddock.ycoord" name="ycoord" ng-maxlength="6" ng-model-options="{ updateOn: 'blur' }" ng-pattern="/^[0-9][\d]{0,2}$/" id="ycoord"/>
+							</div>
+							<div class="form-group">
+								<button type="submit" id="addCoordinate" class="form-control btn btn-primary btn-md" ng-click="PaddockForm.$valid && addCoordinate(paddock)">Add point</button>
+							</div>							
+						</form>	
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1 hidden-sm hidden-xs"></div>			
+		</div>

@@ -1,0 +1,22 @@
+{
+  "name": "static",
+  "private": true,
+  "version": "1.0.0",
+  "description": "blaah",
+  "scripts": {
+    "update-webdriver": "webdriver-manager update",
+    "start": "http-server -o  -p 8000",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor e2e-tests/protractor.conf.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "ngmap": "^1.17.1",
+    "protractor": "^2.5.0"
+  },
+  "dependencies": {
+    "http-server": "^0.10.0"
+  }
+}
